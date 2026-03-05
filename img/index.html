@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>Meine erste Website</title>
+<link href="https://fonts.googleapis.com/css2?family=Lobster+Two&display=swap" rel="stylesheet">
+<style>
+/* BODY UND HINTERGRUND */
+body {
+  font-family:"Lobster Two", sans-serif;
+  margin: 0;
+  padding: 80px;
+  background-color: #FBACC1;
+  background-image: url("img/AstronautBildbearbeitung.png");
+  background-size: cover;
+  background-position: center 35%;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  color: white;
+  text-align: center;
+  text-shadow: 1px 1px 3px black;
+}
+
+/* SCHRIFTGRÖßEN */
+h1 { font-size: 60px; margin: 20px 0; }
+h2 { font-size: 40px; margin: 20px 0; }
+h3 { font-size: 32px; margin: 20px 0; }
+p  { font-size: 24px; line-height: 1.6; margin: 15px 0; }
+
+/* WELLE */
+.wave {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: -1;
+}
+.wave svg {
+  width: 100%;
+  display: block;
+}
+
+/* DROPDOWN MENÜ */
+.dropdown {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 30px;
+  z-index: 10;
+}
+
+.home-button {
+  display: inline-block;
+  padding: 15px 30px;
+  font-size: 24px;
+  background-color: #FF0084;
+  color: white;
+  text-decoration: none;
+  border-radius: 10px;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+.home-button:hover { background-color: #e7008a; }
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #FF0084;
+  min-width: 180px;
+  border-radius: 5px;
+  z-index: 20;
+}
+
+.dropdown-content a {
+  color: white;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+  font-weight: bold;
+}
+.dropdown-content a:hover {
+  background-color: #e7008a;
+}
+
+/* BILDER */
+#image-container {
+  margin-top: 20px;
+}
+#image-container div {
+  display: none;
+  margin: 20px auto;
+}
+#image-container img {
+  max-width: 80%;
+  border-radius: 10px;
+  box-shadow: 2px 2px 10px black;
+}
+</style>
+</head>
+<body>
+
+<!-- DROPDOWN -->
+<div class="dropdown">
+  <a href="#" class="home-button" onclick="toggleDropdown()">HOME</a>
+  <div class="dropdown-content" id="dropdown-menu">
+    <a href="#" onclick="showImage('lebenslauf-container')">Lebenslauf</a>
+    <a href="#" onclick="showImage('abschreiben-container')">Anschreiben</a>
+    <a href="#" onclick="showImage('visitenkarte-container')">Visitenkarte</a>
+  </div>
+</div>
+
+<!-- WELLE -->
+<div class="wave">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+    <path fill="#e7008a" fill-opacity="0.2" d="M0,256L30,229.3C60,203,120,149,180,128C240,107,300,117,360,144C420,171,480,213,540,245.3C600,277,660,299,720,304C780,309,840,299,900,250.7C960,203,1020,117,1080,80C1140,43,1200,53,1260,48C1320,43,1380,21,1410,10.7L1440,0L1440,0L1410,0C1380,0,1320,0,1260,0C1200,0,1140,0,1080,0C1020,0,960,0,900,0C840,0,780,0,720,0C660,0,600,0,540,0,480,0,420,0,360,0,300,0,240,0,180,0,120,0,60,0,30,0L0,0Z"></path>
+  </svg>
+</div>
+
+<!-- TEXT -->
+<h1>Willkommen auf meiner Website</h1>
+<h2> Mein Name ist Diana Beese </h2>
+<h3>Ihre Praktikantin Mediendesign</h3>
+<p>Fachrichtung Digitalmedien</p>
+<p>vorraussichtlicher IHK Abschluss August 2028.</p>
+
+
+<!-- BILDER -->
+<div id="image-container">
+  <div id="lebenslauf-container">
+    <img id="lebenslauf" src="img/Lebenslauf.jpg" alt="Lebenslauf">
+  </div>
+  <div id="abschreiben-container">
+    <img id="abschreiben" src="img/Abschreiben.jpg" alt="Abschreiben">
+  </div>
+  <div id="visitenkarte-container">
+    <img id="visitenkarte" src="img/VisitenkarteRot2.png" alt="Visitenkarte">
+  </div>
+</div>
+
+<!-- JAVASCRIPT -->
+<script>
+function toggleDropdown() {
+  const menu = document.getElementById("dropdown-menu");
+  menu.style.display = (menu.style.display === "block") ? "none" : "block";
+}
+
+function showImage(containerId) {
+  hideAllImages();
+  document.getElementById(containerId).style.display = "block";
+}
+
+function hideAllImages() {
+  const containers = ['lebenslauf-container','abschreiben-container','visitenkarte-container'];
+  containers.forEach(id => {
+    const container = document.getElementById(id);
+    if(container) container.style.display = "none";
+  });
+}
+
+/* Klick außerhalb von Bildern und Dropdown → Bilder ausblenden */
+window.addEventListener('click', function(event) {
+  const dropdown = document.querySelector('.dropdown');
+  const containers = ['lebenslauf-container','abschreiben-container','visitenkarte-container'];
+  const clickedInsideImage = containers.some(id => {
+    const container = document.getElementById(id);
+    return container && container.contains(event.target);
+  });
+  const clickedInsideDropdown = dropdown && dropdown.contains(event.target);
+
+  if(!clickedInsideImage && !clickedInsideDropdown) {
+    hideAllImages();
+    const menu = document.getElementById("dropdown-menu");
+    if(menu.style.display === "block") menu.style.display = "none";
+  }
+});
+</script>
+
+</body>
+</html>
