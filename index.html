@@ -147,7 +147,7 @@ p 1 { font-size: 20px;  margin-top: 20px; margin-bottom: 20px;  }
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  padding: 50px;
+  padding: 150px;
   gap: 30px;
 }
 
@@ -161,6 +161,22 @@ p 1 { font-size: 20px;  margin-top: 20px; margin-bottom: 20px;  }
 
 .portfolio-content img:hover {
   transform: scale(1.05);
+}
+
+.portfolio-content img {
+  max-width: 300px;
+  border-radius: 10px;
+  box-shadow: 2px 2px 15px black;
+  cursor: zoom-in;
+  transition: transform 0.4s ease;
+}
+
+/* Zoom Zustand */
+.portfolio-content img.zoomed {
+  transform: scale(2);
+  z-index: 300;
+  position: relative;
+  cursor: zoom-out;
 }
 
 /* Close Button */
@@ -303,6 +319,34 @@ window.addEventListener("click", function(event) {
   if(event.target === overlay) {
     overlay.style.display = "none";
   }
+});
+
+const portfolioImages = document.querySelectorAll(".portfolio-content img");
+
+portfolioImages.forEach(img => {
+
+  img.addEventListener("click", function(event) {
+
+    // verhindert dass der Klick sofort wieder geschlossen wird
+    event.stopPropagation();
+
+    // alle anderen Bilder zurücksetzen
+    portfolioImages.forEach(i => {
+      if(i !== img){
+        i.classList.remove("zoomed");
+      }
+    });
+
+    // Zoom an/aus
+    img.classList.toggle("zoomed");
+
+  });
+
+});
+
+// Klick irgendwo außerhalb → Zoom zurücksetzen
+document.addEventListener("click", function(){
+  portfolioImages.forEach(img => img.classList.remove("zoomed"));
 });
 </script>
 
