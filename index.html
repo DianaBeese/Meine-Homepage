@@ -25,13 +25,26 @@ body {
    -2px 2px 0 #990033,
     2px -2px 0 #990033,
    -2px -2px 0 #990033,
-    1px 1px 3px black;;
+    1px 1px 3px black;
 }
 
-h1 { font-size: 200px; margin-top: 250px; margin-bottom: 20px;}
-p  { font-size: 40px; margin-top: 60px; margin-bottom: 20px;  }
-p 1 { font-size: 20px;  margin-top: 20px; margin-bottom: 20px;  }
+h1 { 
+  font-size: 200px; 
+  margin-top: 250px; 
+  margin-bottom: 20px;
+}
 
+p  { 
+  font-size: 40px; 
+  margin-top: 60px; 
+  margin-bottom: 20px;  
+}
+
+.small { 
+  font-size: 20px;  
+  margin-top: 20px; 
+  margin-bottom: 20px;  
+}
 
 /* WELLE */
 .wave {
@@ -46,21 +59,21 @@ p 1 { font-size: 20px;  margin-top: 20px; margin-bottom: 20px;  }
   display: block;
 }   
 
-/* DROPDOWN MENÜ */
-.dropdown {
-  position: fixed;   
-  top: 20px;           
-  left: 300px;         
-  display: inline-block;
-  z-index: 60;          
-  border-radius: 8px;     
-}
-
-.portfolio-button {
-  display: inline-block;
+/* NAVIGATION & BUTTONS */
+.navbar {
   position: fixed;
   top: 20px;
-  right: 250px;
+  left: 40px;
+  right: 40px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 20px;
+  z-index: 100;
+}
+
+.home-button, .portfolio-button, .impressum-button {
+  display: inline-block;
   padding: 15px 30px;
   font-size: 24px;
   background-color: #FB59B1;
@@ -69,20 +82,20 @@ p 1 { font-size: 20px;  margin-top: 20px; margin-bottom: 20px;  }
   border-radius: 10px;
   font-weight: bold;
   border: none;
-  cursor: pointer;}
-
-.home-button {
-  display: inline-block;
-  padding: 15px 30px;
-  font-size: 24px;
-  background-color: #FB59B1;
-  color: white;
-  text-decoration: none;
-  border-radius: 10px;
-  font-weight: bold;
+  cursor: pointer;
   transition: background 0.3s;
 }
-.home-button:hover { background-color: #e7008a; }
+
+.home-button:hover, .portfolio-button:hover, .impressum-button:hover { 
+  background-color: #e7008a; 
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+  border-radius: 8px;
+  z-index: 60;          
+}    
 
 .dropdown-content {
   display: none;
@@ -93,17 +106,6 @@ p 1 { font-size: 20px;  margin-top: 20px; margin-bottom: 20px;  }
   z-index: 20;
 }
 
-.navbar {
-  position: fixed;
-  top: 20px;
-  left: 40px;
-  right: 40px;
-  display: flex;
-  justify-content: space-between; /* links + rechts */
-  align-items: center;
-  z-index: 100;
-}
-
 .dropdown-content a {
   color: white;
   padding: 12px 16px;
@@ -112,6 +114,7 @@ p 1 { font-size: 20px;  margin-top: 20px; margin-bottom: 20px;  }
   text-align: left;
   font-weight: bold;
 }
+
 .dropdown-content a:hover {
   background-color: #e7008a;
 }
@@ -155,23 +158,10 @@ p 1 { font-size: 20px;  margin-top: 20px; margin-bottom: 20px;  }
   max-width: 300px;
   border-radius: 10px;
   box-shadow: 2px 2px 15px black;
-  cursor: pointer;
-  transition: transform 0.3s;
-}
-
-.portfolio-content img:hover {
-  transform: scale(1.05);
-}
-
-.portfolio-content img {
-  max-width: 300px;
-  border-radius: 10px;
-  box-shadow: 2px 2px 15px black;
   cursor: zoom-in;
   transition: transform 0.4s ease;
 }
 
-/* Zoom Zustand */
 .portfolio-content img.zoomed {
   transform: scale(2);
   z-index: 300;
@@ -188,16 +178,34 @@ p 1 { font-size: 20px;  margin-top: 20px; margin-bottom: 20px;  }
   color: white;
   cursor: pointer;
   font-weight: bold;
+}
+
+/* Impressum Box unten rechts, scrollt bei Textüberlauf */
+#impressum-container{
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 350px;
+  max-height: 70%;
+  overflow-y: auto;
+  background-color: rgba(251,89,177,0.95);
+  padding:20px;
+  border-radius:12px;
+  box-shadow:0px 0px 15px black;
+  display:none;
+  text-align:left;
+  color: white;
+  font-size: 16px;
+}
 </style>
 </head>
 <body>
 
-
-<!-- DROPDOWN -->
+<!-- NAVIGATION -->
 <nav class="navbar">
 
   <div class="dropdown">
-    <a href="#" class="home-button" onclick="toggleDropdown()">HOME</a>
+    <a href="#" class="home-button" onclick="toggleDropdown()">PROFIL</a>
     <div class="dropdown-content" id="dropdown-menu">
       <a href="#" onclick="showImage('lebenslauf-container')">Lebenslauf</a>
       <a href="#" onclick="showImage('abschreiben-container')">Anschreiben</a>
@@ -205,19 +213,12 @@ p 1 { font-size: 20px;  margin-top: 20px; margin-bottom: 20px;  }
     </div>
   </div>
 
-  <div class="portfolio-dropdown">
-    <a href="#" class="portfolio-button" onclick="togglePortfolio()">PORTFOLIO</a>
-    <div class="dropdown-content" id="portfolio-menu">
-      <a href="#" onclick="showImage('projekt1')">Projekt 1</a>
-      <a href="#" onclick="showImage('projekt2')">Projekt 2</a>
-      <a href="#" onclick="showImage('projekt3')">Projekt 3</a>
-    </div>
-  </div>
+  <a href="#" class="portfolio-button" onclick="togglePortfolio()">PORTFOLIO</a>
+  <a href="#" class="impressum-button" onclick="showImpressum()">IMPRESSUM</a>
 
 </nav>
 
 <!-- Portfolio Galerie Overlay -->
-
 <div id="portfolio-overlay">
   <div class="portfolio-content">
     <span id="close-portfolio">&times;</span>
@@ -225,11 +226,10 @@ p 1 { font-size: 20px;  margin-top: 20px; margin-bottom: 20px;  }
     <img src="img/EisbaR.png" alt="Projekt 2">
     <img src="img/Museum.png" alt="Projekt 3">
     <img src="img/Eispalast.png" alt="Projekt 4">
-    <img src="img/Respektiere.png" alt="Projekt 5 ">
-    <img src="img/Frauentag.png" alt="Projekt 6 ">
-    <img src="img/make art not war.png" alt="Projekt 7 ">
-    <img src="img/zwickau.png" alt="Projekt 8 ">
-
+    <img src="img/Respektiere.png" alt="Projekt 5">
+    <img src="img/Frauentag.png" alt="Projekt 6">
+    <img src="img/make art not war.png" alt="Projekt 7">
+    <img src="img/zwickau.png" alt="Projekt 8">
   </div>
 </div>
 
@@ -241,11 +241,10 @@ p 1 { font-size: 20px;  margin-top: 20px; margin-bottom: 20px;  }
 </div>
 
 <!-- TEXT -->
- <h1>Diana Beese</h1>
-<p>Ihre Praktikantin Mediendesign |Fachrichtung Digitalmedien</p>
-<p1>vorraussichtlicher </p1>
-<p1>IHK Abschluss August 2028</p1>
-
+<h1>Diana Beese</h1>
+<p>Ihre Praktikantin Mediendesign | Fachrichtung Digitalmedien</p>
+<p class="small">voraussichtlicher</p>
+<p class="small">IHK Abschluss August 2028</p>
 
 <!-- BILDER -->
 <div id="image-container">
@@ -260,6 +259,25 @@ p 1 { font-size: 20px;  margin-top: 20px; margin-bottom: 20px;  }
   </div>
 </div>
 
+<!-- IMPRESSUM -->
+<div id="impressum-container" onclick="hideImpressum()">
+<h2>Impressum</h2>
+<p>
+Angaben gemäß § 5 TMG<br><br>
+
+Diana Beese<br>
+Praktikantin Mediendesign – Fachrichtung Digitalmedien<br><br>
+
+Adresse:<br>
+Casparistraße 8<br>
+08056 Zwickau<br>
+Deutschland<br><br>
+
+Diese Website dient ausschließlich der Präsentation meines Portfolios
+im Rahmen meiner Bewerbung im Bereich Mediendesign.
+</p>
+</div>
+
 <!-- JAVASCRIPT -->
 <script>
 function toggleDropdown() {
@@ -268,8 +286,8 @@ function toggleDropdown() {
 }
 
 function togglePortfolio() {
-  const menu = document.getElementById("portfolio-menu");
-  menu.style.display = (menu.style.display === "block") ? "none" : "block";
+  const overlay = document.getElementById("portfolio-overlay");
+  overlay.style.display = (overlay.style.display === "block") ? "none" : "block";
 }
 
 function showImage(containerId) {
@@ -285,7 +303,7 @@ function hideAllImages() {
   });
 }
 
-/* Klick außerhalb von Bildern und Dropdown → Bilder ausblenden */
+// Klick außerhalb → Bilder & Dropdown ausblenden
 window.addEventListener('click', function(event) {
   const dropdown = document.querySelector('.dropdown');
   const containers = ['lebenslauf-container','abschreiben-container','visitenkarte-container'];
@@ -302,52 +320,36 @@ window.addEventListener('click', function(event) {
   }
 });
 
-// Öffnen der Galerie
-function togglePortfolio() {
-  const overlay = document.getElementById("portfolio-overlay");
-  overlay.style.display = (overlay.style.display === "block") ? "none" : "block";
-}
+// Portfolio Zoom
+const portfolioImages = document.querySelectorAll(".portfolio-content img");
+portfolioImages.forEach(img => {
+  img.addEventListener("click", function(event) {
+    event.stopPropagation();
+    portfolioImages.forEach(i => { if(i !== img){ i.classList.remove("zoomed"); } });
+    img.classList.toggle("zoomed");
+  });
+});
 
-// Schließen, wenn auf X geklickt wird
+// Close overlay when X clicked
 document.getElementById("close-portfolio").addEventListener("click", function() {
   document.getElementById("portfolio-overlay").style.display = "none";
 });
 
-// Schließen, wenn irgendwo außerhalb der Bilder geklickt wird
-window.addEventListener("click", function(event) {
-  const overlay = document.getElementById("portfolio-overlay");
-  if(event.target === overlay) {
-    overlay.style.display = "none";
-  }
-});
-
-const portfolioImages = document.querySelectorAll(".portfolio-content img");
-
-portfolioImages.forEach(img => {
-
-  img.addEventListener("click", function(event) {
-
-    // verhindert dass der Klick sofort wieder geschlossen wird
-    event.stopPropagation();
-
-    // alle anderen Bilder zurücksetzen
-    portfolioImages.forEach(i => {
-      if(i !== img){
-        i.classList.remove("zoomed");
-      }
-    });
-
-    // Zoom an/aus
-    img.classList.toggle("zoomed");
-
-  });
-
-});
-
-// Klick irgendwo außerhalb → Zoom zurücksetzen
+// Close zoom if click outside
 document.addEventListener("click", function(){
   portfolioImages.forEach(img => img.classList.remove("zoomed"));
 });
+
+// Impressum ein-/ausblenden
+function showImpressum(){
+  const box = document.getElementById("impressum-container");
+  box.style.display = (box.style.display === "block") ? "none" : "block";
+}
+
+function hideImpressum(){
+  const box = document.getElementById("impressum-container");
+  box.style.display = "none";
+}
 </script>
 
 </body>
