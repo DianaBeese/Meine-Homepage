@@ -6,25 +6,33 @@
 <link href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DynaPuff:wght@400..700&family=Lobster+Two:ital,wght@0,400;0,700;1,400;1,700&family=Shadows+Into+Light&display=swap" rel="stylesheet">
+
 <style>
 /* BODY UND HINTERGRUND */
 body {
   font-family:"DynaPuff", system-ui;
   margin: 0;
   padding: 80px;
-  background-color: #FBACC1;
-  background-image: url("img/AstronautPink.jpg");
+  background-color: #CBCBCB;
+  background-image: linear-gradient(rgba(203,203,203,0.5), rgba(203,203,203,0.5)),
+                    url("img/AstronautPink.jpg");
   background-size: cover;
   background-position: center 50%;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  color: white;
+  h1 {color: #FD3DB5;   
+   text-shadow:
+    3px 3px 0 white,
+   -3px 3px 0 white,
+    3px -3px 0 white,
+   -3px -3px 0 white;}
+  p {color: white;}
   text-align: center;
   text-shadow: 
-    2px 2px 0 #990033,
-   -2px 2px 0 #990033,
-    2px -2px 0 #990033,
-   -2px -2px 0 #990033,
+    2px 2px 0 #FD3DB5,
+   -2px 2px 0 #FD3DB5,
+    2px -2px 0 #FD3DB5,
+   -2px -2px 0 #FD3DB5,
     1px 1px 3px black;
 }
 
@@ -32,16 +40,18 @@ h1 {
   font-size: 200px; 
   margin-top: 250px; 
   margin-bottom: 20px;
+
 }
 
 p  { 
-  font-size: 40px; 
-  margin-top: 60px; 
-  margin-bottom: 20px;  
+  font-size: 60px; 
+  margin-top: 20px; 
+  margin-bottom: 20px; 
+ 
 }
 
 .small { 
-  font-size: 20px;  
+  font-size: 40px;  
   margin-top: 20px; 
   margin-bottom: 20px;  
 }
@@ -181,7 +191,7 @@ p  {
 }
 
 /* Impressum Box unten rechts, scrollt bei Textüberlauf */
-#impressum-container{
+#impressum-container {
   position: fixed;
   bottom: 30px;
   right: 30px;
@@ -194,9 +204,13 @@ p  {
   box-shadow:0px 0px 15px black;
   display:none;
   text-align:left;
-  color: white;
-  font-size: 16px;
-}
+  color: white;}
+#impressum-container h2
+{  font-size: 12px;}
+#impressum-container p 
+{ font-size: 12px; 
+  margin-top: 0;
+  margin-bottom: 10px;}
 </style>
 </head>
 <body>
@@ -233,16 +247,12 @@ p  {
   </div>
 </div>
 
-<!-- WELLE -->
-<div class="wave">
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-    <path fill="#e7008a" fill-opacity="0.2" d="M0,256L30,229.3C60,203,120,149,180,128C240,107,300,117,360,144C420,171,480,213,540,245.3C600,277,660,299,720,304C780,309,840,299,900,250.7C960,203,1020,117,1080,80C1140,43,1200,53,1260,48C1320,43,1380,21,1410,10.7L1440,0L1440,0L1410,0C1380,0,1320,0,1260,0C1200,0,1140,0,1080,0C1020,0,960,0,900,0C840,0,780,0,720,0C660,0,600,0,540,0,480,0,420,0,360,0,300,0,240,0,180,0,120,0,60,0,30,0L0,0Z"></path>
-  </svg>
-</div>
+
 
 <!-- TEXT -->
 <h1>Diana Beese</h1>
-<p>Ihre Praktikantin Mediendesign | Fachrichtung Digitalmedien</p>
+<p>Ihre Praktikantin Mediendesign </p> 
+<p>Fachrichtung Digitalmedien</p>
 <p class="small">voraussichtlicher</p>
 <p class="small">IHK Abschluss August 2028</p>
 
